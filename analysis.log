@@ -1,0 +1,33 @@
+
+visualizing each temperature...
+visualizing temperatures in groups of 3...
+
+loading data from './data/p1_data_train.csv'... done.
+pre-processing data... done.
+performing grid search... done.
+best parameters: {'C': 8, 'penalty': 'l2'}
+best accuracy: 89.52%
+
+saving model to './models/log_reg_estimator.pkl'... done.
+saving X stats to './models/X_stats.json'... done.
+
+loading data from './data/p1_data_test.csv'... done.
+loading best estimator from './models/log_reg_estimator.pkl'... done.
+loading X stats from './models/X_stats.json'... done.
+pre-processing data... done.
+
+predicting... done. some results:
+       Temp1      Temp2      Temp3      Temp4  target
+0  44.760232  30.155482  42.153337  29.537107       0
+1  31.257871  30.213960  24.585232  34.751435       0
+2  33.725578  48.644536  36.481775  37.775710       0
+3  27.256148  37.019988  27.712007  49.032504       0
+4  36.356406  37.303621  35.852409  46.498009       1
+5  40.635400  39.375273  39.200969  46.889323       1
+6  25.727306  48.470101  38.060079  52.944619       1
+7  44.993887  29.556221  42.273723  28.745399       0
+8  26.996730  34.334622  24.658323  31.497217       0
+9  37.594682  46.010167  43.877341  33.949559       1
+
+saving results to './data/p1_predictions.csv'... done.
+
