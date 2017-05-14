@@ -1,0 +1,8 @@
+report/
+!report/img/
+!report/*.tex
+!report/*.bib
+*.pyc
+~*
+.~*
+__pycache__/
