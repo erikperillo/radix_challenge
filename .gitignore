@@ -1,7 +1,7 @@
 report/
 !report/img/
-!report/*.tex
-!report/*.bib
+!report/report.tex
+!report/report.bib
 *.pyc
 ~*
 .~*
