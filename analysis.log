@@ -1,5 +1,6 @@
 
 visualizing each temperature...
+visualizing temperatures in groups of 2...
 visualizing temperatures in groups of 3...
 
 loading data from './data/p1_data_train.csv'... done.
@@ -8,6 +9,8 @@ performing grid search... done.
 best parameters: {'C': 8, 'penalty': 'l2'}
 best accuracy: 89.52%
 
+estimator coefficients: [[-0.00091389  0.15810688 -0.00970311  0.41408441]]
+estimator bias: [-19.33031083]
 saving model to './models/log_reg_estimator.pkl'... done.
 saving X stats to './models/X_stats.json'... done.
 

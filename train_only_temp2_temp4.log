@@ -1,0 +1,9 @@
+
+loading data from './data/p1_data_train.csv'... done.
+pre-processing data... done.
+performing grid search... done.
+best parameters: {'C': 1, 'penalty': 'l1'}
+best accuracy: 89.23%
+
+estimator coefficients: [[ 0.15991669  0.41648167]]
+estimator bias: [-19.85041189]

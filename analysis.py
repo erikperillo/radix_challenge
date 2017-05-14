@@ -12,9 +12,10 @@ from matplotlib import style
 style.use("ggplot")
 
 import os
-import itertools
 import pickle
 import json
+from itertools import combinations
+from csv import QUOTE_ALL
 
 #dataset label names
 X_LABELS = ["Temp1", "Temp2", "Temp3", "Temp4"]
@@ -76,10 +77,22 @@ def visualize():
     plt.tight_layout()
     plt.show()
 
+    #visualizing all combinations of temperatures in 2D
+    print("visualizing temperatures in groups of 2...")
+    fig = plt.figure()
+    for i, (x1, x2) in enumerate(combinations(X_LABELS, 2)):
+        ax = fig.add_subplot(321 + i)
+        ax.scatter(df.ix[pos_idx][x1].values, df.ix[pos_idx][x2].values, c="g")
+        ax.scatter(df.ix[neg_idx][x1].values, df.ix[neg_idx][x2].values, c="r")
+        ax.set_xlabel(x1)
+        ax.set_ylabel(x2)
+    plt.tight_layout()
+    plt.show()
+
     #visualizing all combinations of temperatures in 3D
     print("visualizing temperatures in groups of 3...")
     fig = plt.figure()
-    for i, (x1, x2, x3) in enumerate(itertools.combinations(X_LABELS, 3)):
+    for i, (x1, x2, x3) in enumerate(combinations(X_LABELS, 3)):
         ax = fig.add_subplot(221 + i, projection="3d")
         ax.scatter(df.ix[pos_idx][x1].values, df.ix[pos_idx][x2].values,
             df.ix[pos_idx][x3].values, c="g")
@@ -108,6 +121,11 @@ def train():
     X, X_stats = pre_process(X)
     print("done.")
 
+    #using only most important variables
+    #X[:, 0] = X[:, 1]
+    #X[:, 1] = X[:, 3]
+    #X = X[:, :2]
+
     #logistic regression estimator
     est = LogisticRegression()
 
@@ -117,11 +135,15 @@ def train():
     gs.fit(X, y)
     print("done.")
 
+    est = gs.best_estimator_
+    #print("results:", gs.cv_results_)
     print("best parameters:", gs.best_params_)
     print("best accuracy: {:.2f}%\n".format(100*gs.best_score_))
+    print("estimator coefficients:", est.coef_)
+    print("estimator bias:", est.intercept_)
+    exit()
 
     #saving best estimator and X stats
-    est = gs.best_estimator_
     print("saving model to '{}'...".format(ESTIMATOR_FILEPATH), end=" ",
         flush=True)
     with open(ESTIMATOR_FILEPATH, "wb") as f:
@@ -173,13 +195,13 @@ def test():
     print("\nsaving results to '{}'...".format(PRED_FILEPATH), end=" ",
         flush=True)
     pred_df = pd.DataFrame({"target": y})
-    pred_df.to_csv(PRED_FILEPATH, index=False)
+    pred_df.to_csv(PRED_FILEPATH, index=False, quoting=QUOTE_ALL)
     print("done.\n")
 
 def main():
-    visualize()
+    #visualize()
     train()
-    test()
+    #test()
 
 if __name__ == "__main__":
     main()
